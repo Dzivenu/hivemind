@@ -187,7 +187,7 @@ hive_feed_cache = sa.Table(
     sa.Column('created_at', sa.DateTime, nullable=False),
     sa.UniqueConstraint('post_id', 'account', name='hive_feed_cache_ux1'), #TODO: verify PK
     sa.Index('hive_feed_cache_ix1', 'account', 'post_id', 'created_at'),
-    mysql_engine='InnoDB',
+    mysql_engine='MEMORY',
     mysql_default_charset='utf8mb4'
 )
 

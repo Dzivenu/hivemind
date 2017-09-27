@@ -434,8 +434,8 @@ def run():
         print("[INIT] No tables found. Initializing db...")
         setup()
 
-    #TODO: if initial sync is interrupted, cache never rebuilt
     #TODO: do not build partial feed_cache during init_sync
+
     # if this is the initial sync, batch updates until very end
     is_initial_sync = not query_one("SELECT 1 FROM hive_posts_cache LIMIT 1")
 
@@ -444,6 +444,7 @@ def run():
     else:
         # perform cleanup in case process did not exit cleanly
         cache_missing_posts()
+        rebuild_feed_cache() # rebuild volatile MEMORY table
 
     # fast block sync strategies
     sync_from_checkpoints(is_initial_sync)
